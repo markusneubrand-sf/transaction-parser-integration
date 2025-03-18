@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Heroku-Salesforce API
+  description: Sample Heroku app exposing APIs to connected Salesforce and Data Cloud orgs.
+servers:
+  - url: http://127.0.0.1:3000
+paths:
+  /parse-transactions:
+    post:
+      operationId: ParseTransactions
+      description:
+        Receives a payload containing a Salesforce Account ID, retrieves a yaml file of transactions from an external system
+        and writes transactions belonging to the account back to the calling salesforce org
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountId:
+                  type: string
+      responses:
+        '200':
+          description: Successfully parsed transactions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
