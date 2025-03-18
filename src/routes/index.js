@@ -25,7 +25,7 @@ module.exports = async function (fastify, opts) {
     validateField('accountId', data.accountId);
 
     // Parse YAML
-    const yamlText = await node_fetch.default('https://raw.githubusercontent.com/markusneubrand-sf/transation-data/refs/heads/main/transactions-sample.yaml')
+    const yamlText = await node_fetch.default('https://raw.githubusercontent.com/markusneubrand-sf/transation-data/refs/heads/main/transactions.yaml')
                           .then((response) => response.text());
     const parsed = yaml.parse(yamlText);
 
