@@ -1,7 +1,7 @@
 'use strict'
 
 const yaml = require('yaml');
-const fetch = require('node-fetch');
+const node_fetch = require('node-fetch');
 
 module.exports = async function (fastify, opts) {
 
@@ -25,7 +25,7 @@ module.exports = async function (fastify, opts) {
     validateField('accountId', data.accountId);
 
     // Parse YAML
-    const yamlText = await fetch('https://raw.githubusercontent.com/markusneubrand-sf/transation-data/refs/heads/main/transactions-sample.yaml')
+    const yamlText = await node_fetch.default('https://raw.githubusercontent.com/markusneubrand-sf/transation-data/refs/heads/main/transactions-sample.yaml')
                           .then((response) => response.text());
     const parsed = yaml.parse(yamlText);
 
@@ -33,7 +33,7 @@ module.exports = async function (fastify, opts) {
     const uow = dataApi.newUnitOfWork();
     for (var i = 0; i < parsed.length; i++) {
       if (parsed[i].accountId == data.accountId) {
-        logger.info(JSON.stringify(response));
+        logger.info(JSON.stringify(parsed[i]));
         uow.registerCreate({
           type: 'Transaction__c',
           fields: {
