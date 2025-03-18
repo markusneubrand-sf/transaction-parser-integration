@@ -39,7 +39,7 @@ module.exports = async function (fastify, opts) {
           fields: {
             Account__c: parsed[i].accountId,
             Name: parsed[i].subject,
-            Amount: parsed[i].amount
+            Amount__c: parsed[i].amount
           }
         });
       }
