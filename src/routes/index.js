@@ -31,8 +31,10 @@ module.exports = async function (fastify, opts) {
 
     // Create a unit of work that inserts transactions belonging to the account
     const uow = dataApi.newUnitOfWork();
+    var numTx = 0;
     for (var i = 0; i < parsed.length; i++) {
       if (parsed[i].accountId == data.accountId) {
+        numTx++;
         logger.info(JSON.stringify(parsed[i]));
         uow.registerCreate({
           type: 'Transaction__c',
@@ -55,7 +57,7 @@ module.exports = async function (fastify, opts) {
       throw new Error(errorMessage);
     }
 
-    return '{message: "Success"}';
+    return {message: "Success! Wrote back " + numTx + " transactions" };
   });
   
 }
